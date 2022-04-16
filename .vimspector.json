@@ -1,0 +1,20 @@
+{
+  "configurations": {
+    "rust - lldb": {
+      "adapter": "CodeLLDB",
+      "filetypes": ["rust"],
+      "configuration": {
+        "request": "launch",
+        "program": "${workspaceRoot}/target/debug/blurhash-rust",
+        "args": ["*${Args}"],
+        "sourceLanguages": ["rust"]
+      },
+      "breakpoints": {
+        "exceptions": {
+          "cpp_throw": "Y",
+          "cpp_catch": "N"
+        }
+      }
+    }
+  }
+}
