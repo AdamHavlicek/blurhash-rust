@@ -21,7 +21,7 @@ fn decode_ac(value: usize, max_value: f64) -> NumberTriplet {
 
 pub fn decode(hash: &str, width: usize, height: usize) -> Result<Vec<u8>, DecodeError> {
     if hash.len() < 6 {
-        return Err(DecodeError::InvalidLength)
+        return Err(DecodeError::InvalidLength);
     }
 
     // TODO: proper error handling and hash validation
@@ -31,7 +31,7 @@ pub fn decode(hash: &str, width: usize, height: usize) -> Result<Vec<u8>, Decode
 
     let expected_digits = 4 + 2 * num_x * num_y;
     if hash.len() != expected_digits {
-        return Err(DecodeError::LengthMismatch)
+        return Err(DecodeError::LengthMismatch);
     }
 
     let quantised_max_value = decode83(hash.get(1..2).unwrap());
@@ -43,12 +43,10 @@ pub fn decode(hash: &str, width: usize, height: usize) -> Result<Vec<u8>, Decode
     colors.push(decode_dc(decode83(hash.get(2..6).unwrap())));
     for index in 1..colors_capacity {
         let range = (4 + index * 2)..(4 + index * 2 + 2);
-        colors.push(
-            decode_ac(
-                decode83(hash.get(range).unwrap()),
-                max_value * 1.,
-            )
-        );
+        colors.push(decode_ac(
+            decode83(hash.get(range).unwrap()),
+            max_value * 1.,
+        ));
     }
 
     let bytes_per_row = width * 4;
@@ -71,17 +69,15 @@ pub fn decode(hash: &str, width: usize, height: usize) -> Result<Vec<u8>, Decode
             }
 
             for rgba_index in 0..4 {
-                let value: u8;
-                if rgba_index == 3 {
-                    value = rgba[rgba_index] as u8;
+                let value: u8 = if rgba_index == 3 {
+                    rgba[rgba_index] as u8
                 } else {
-                    value = linear2srgb(rgba[rgba_index]) as u8;
-                }
+                    linear2srgb(rgba[rgba_index]) as u8
+                };
                 pixels[4 * x + rgba_index + y * bytes_per_row] = value;
             }
         }
     }
-    
     Ok(pixels.into_iter().collect())
 }
 

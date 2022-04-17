@@ -6,13 +6,17 @@
 <link rel="stylesheet" href="">
 <style>
 </style>
-<script src="pkg/blurhash_rust.js">
-  
+<script src="../pkg/blurhash_rust.js">
 </script>
 <body>
-
 <div class="">
-</div>
+<script>
+  const hash = "LUDT3yayV?ay%jWBa#a}9Xj[j@fP"
+  const width = 40
+  const height = 30
 
+  console.log(wasm_bindgen.decode(hash, width, height))
+</script>
+</div>
 </body>
 </html>

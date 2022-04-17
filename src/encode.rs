@@ -56,7 +56,7 @@ pub fn encode(
     component_x: usize,
     component_y: usize,
 ) -> Result<String, EncodeError> {
-    if component_x < 1 || component_x > 9 || component_y < 1 || component_y > 9 {
+    if !(1..=9).contains(&component_x) || !(1..=9).contains(&component_y) {
         // panic!("BlurHash must have between 1 and 9 components");
         return Err(EncodeError::ComponentNumberOutbound)
     }

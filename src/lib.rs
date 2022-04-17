@@ -24,7 +24,7 @@ pub fn wasm_decode(hash: &str, width: usize, height: usize) -> Result<Vec<u8>, J
         width, 
         height
     ).map_err(
-        |error| JsError::new(&error.to_string()).into() 
+        |error| JsError::new(&error.to_string())
         // js_sys::Error::new(&error.to_string()).into()
     )
 }
@@ -38,7 +38,7 @@ pub fn wasm_encode(pixels: Vec<u8>, width: usize, height: usize, com_x: usize, c
         com_x, 
         com_y
     ).map_err(
-        |error| JsError::new(&error.to_string()).into() 
+        |error| JsError::new(&error.to_string())
          //js_sys::Error::new(&error.to_string()).into()
     )
 }
