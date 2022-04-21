@@ -1,7 +1,7 @@
 
-pub const BYTES_PER_PIXEL: usize = 4;
+pub static BYTES_PER_PIXEL: usize = 4;
 
-pub const DIGIT_CHARACTERS: [char; 83] = [
+pub static DIGIT_CHARACTERS: [char; 83] = [
   '0',
   '1',
   '2',

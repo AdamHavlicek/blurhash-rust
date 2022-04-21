@@ -19,12 +19,11 @@ fn decode_ac(value: usize, max_value: f64) -> NumberTriplet {
     quant_rgb.map(|v| sign_pow((v - 9.) / 9., 2.) * max_value)
 }
 
-pub fn decode(hash: &str, width: usize, height: usize) -> Result<Vec<u8>, DecodeError> {
+pub fn decode(hash: &str, width: usize, height: usize, punch: Option<f64>) -> Result<Vec<u8>, DecodeError> {
     if hash.len() < 6 {
         return Err(DecodeError::InvalidLength);
     }
 
-    // TODO: proper error handling and hash validation
     let size_flag = decode83(hash.get(0..1).unwrap());
     let num_y = (size_flag / 9) + 1;
     let num_x = (size_flag % 9) + 1;
@@ -45,7 +44,7 @@ pub fn decode(hash: &str, width: usize, height: usize) -> Result<Vec<u8>, Decode
         let range = (4 + index * 2)..(4 + index * 2 + 2);
         colors.push(decode_ac(
             decode83(hash.get(range).unwrap()),
-            max_value * 1.,
+            max_value * punch.unwrap_or(1.),
         ));
     }
 
@@ -78,7 +77,7 @@ pub fn decode(hash: &str, width: usize, height: usize) -> Result<Vec<u8>, Decode
             }
         }
     }
-    Ok(pixels.into_iter().collect())
+    Ok(pixels)
 }
 
 #[cfg(test)]
@@ -99,6 +98,7 @@ mod tests {
             hash,
             usize::try_from(width).unwrap(),
             usize::try_from(height).unwrap(),
+            None
         );
         // image::save_buffer(
         //     path,

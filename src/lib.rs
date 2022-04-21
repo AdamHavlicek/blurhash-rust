@@ -18,11 +18,12 @@ use decode::decode as decode_blurhash;
 static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 
 #[wasm_bindgen(js_name = "decode")]
-pub fn wasm_decode(hash: &str, width: usize, height: usize) -> Result<Vec<u8>, JsError> {
+pub fn wasm_decode(hash: &str, width: usize, height: usize, punch: Option<f64>) -> Result<Vec<u8>, JsError> {
     decode_blurhash(
         hash, 
         width, 
-        height
+        height,
+        punch
     ).map_err(
         |error| JsError::new(&error.to_string())
         // js_sys::Error::new(&error.to_string()).into()
