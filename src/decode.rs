@@ -77,6 +77,7 @@ pub fn decode(hash: &str, width: usize, height: usize, punch: Option<f64>) -> Re
             }
         }
     }
+
     Ok(pixels)
 }
 

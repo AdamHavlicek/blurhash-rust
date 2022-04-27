@@ -17,6 +17,7 @@ use decode::decode as decode_blurhash;
 #[global_allocator]
 static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 
+
 #[wasm_bindgen(js_name = "decode")]
 pub fn wasm_decode(hash: &str, width: usize, height: usize, punch: Option<f64>) -> Result<Vec<u8>, JsError> {
     decode_blurhash(

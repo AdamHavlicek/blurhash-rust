@@ -6,6 +6,18 @@
       "configuration": {
         "request": "launch",
         "program": "${workspaceRoot}/target/debug/blurhash-rust",
+        "cargo": {
+            "args": [
+                "test",
+                "--no-run",
+                "--lib",
+                "--package=blurhash-rust"
+            ],
+            "filter": {
+                "name": "blurhash-rust",
+                "kind": "lib"
+            }
+        },
         "args": ["*${Args}"],
         "sourceLanguages": ["rust"]
       },

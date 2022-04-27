@@ -7,7 +7,6 @@ use blurhash_rust::*;
 
 wasm_bindgen_test_configure!(run_in_browser);
 
-#[wasm_bindgen_test]
 fn test_encode() {
     // TODO: write test 
 }

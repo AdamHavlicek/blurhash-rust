@@ -80,10 +80,12 @@ pub fn encode(
     let dc = factors[0];
     let ac = &factors[1..factors.len()];
 
-    let mut hash = String::new();
+    // capactiy size_flag, max_value, dc, ac 
+    let string_capacity = 1 + 1 + 4 + ac.len() * 2;
+    let mut hash = String::with_capacity(string_capacity);
 
     let size_flag = (component_x - 1) + (component_y - 1) * 9;
-    hash += &encode83(size_flag, 1);
+    hash.push_str(&encode83(size_flag, 1));
 
     let max_value: f64;
     if !ac.is_empty() {
@@ -104,16 +106,16 @@ pub fn encode(
             usize::min(82, f64::floor(actual_max_value * 166. - 0.5) as usize),
         );
         max_value = (quantised_max_value + 1) as f64 / 166.;
-        hash += &encode83(quantised_max_value, 1);
+        hash.push_str(&encode83(quantised_max_value, 1));
     } else {
         max_value = 1.;
-        hash += &encode83(0, 1);
+        hash.push_str(&encode83(0, 1));
     }
 
-    hash += &encode83(encode_dc(&dc), 4);
+    hash.push_str(&encode83(encode_dc(&dc), 4));
 
     for factor in ac {
-        hash += &encode83(encode_ac(factor, max_value), 2);
+        hash.push_str(&encode83(encode_ac(factor, max_value), 2));
     }
 
     Ok(hash)
